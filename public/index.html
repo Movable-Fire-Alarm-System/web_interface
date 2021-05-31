@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cease Fire Web Interface</title>
+  <script src="js/vue3.0.5.js"></script>
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="https://github.com/Movable-Fire-Alarm-System">Cease Fire Web Interface</a>
+    </div>
+  </nav>
+
+
+
+  <div class="container-fluid">
+    <div class="row clearfix">
+      <div class="col-md-6 column">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3>Movement Control</h3>
+          </div>
+          <div class="panel-body">
+
+            <img src="/image/galaxy_star_12.jpg" class="img-responsive img-thumbnail">
+            
+            <div class="row clearfix">
+              <div class="col-md-6 column">
+                <label class="radio-inline">
+                  <input type="radio" name="videoMovement" id="optionsRadios1" value="realtime" checked> Real Time
+                </label>
+              </div>
+              <div class="col-md-6 column">
+                <label class="radio-inline">
+                  <input type="radio" name="videoMovement" id="optionsRadios2" value="compress"> Compress
+                </label>
+              </div>
+            </div>
+
+
+
+
+            <button type="button" class="btn btn-default">
+              <span class="glyphicon glyphicon-arrow-up"></span>
+            </button>
+
+            <button type="button" class="btn btn-default">
+              <span class="glyphicon glyphicon-arrow-down"></span>
+            </button>
+
+            <button type="button" class="btn btn-default">
+              <span class="glyphicon glyphicon-arrow-left"></span>
+            </button>
+
+            <button type="button" class="btn btn-default">
+              <span class="glyphicon glyphicon-arrow-right"></span>
+            </button>
+
+            <button type="button" class="btn btn-default">
+              Auto
+            </button>
+
+            <button type="button" class="btn btn-default">
+              Manual
+            </button>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 column">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3>Gimbal Control</h3>
+          </div>
+          <div class="panel-body">
+
+            <img src="/image/galaxy_star_12.jpg" class="img-responsive img-thumbnail">
+            
+            <div class="row clearfix">
+              <div class="col-md-6 column">
+                <label class="radio-inline">
+                  <input type="radio" name="videoGimbal" id="optionsRadios1" value="realtime" checked> Real Time
+                </label>
+              </div>
+              <div class="col-md-6 column">
+                <label class="radio-inline">
+                  <input type="radio" name="videoGimbal" id="optionsRadios2" value="compress"> Compress
+                </label>
+              </div>
+            </div>
+
+
+            <button type="button" class="btn btn-default">
+              <span class="glyphicon glyphicon-arrow-up"></span>
+            </button>
+
+            <button type="button" class="btn btn-default">
+              <span class="glyphicon glyphicon-arrow-down"></span>
+            </button>
+
+            <button type="button" class="btn btn-default">
+              <span class="glyphicon glyphicon-arrow-left"></span>
+            </button>
+
+            <button type="button" class="btn btn-default">
+              <span class="glyphicon glyphicon-arrow-right"></span>
+            </button>
+
+            <button type="button" class="btn btn-default">
+              Auto
+            </button>
+
+            <button type="button" class="btn btn-default">
+              Manual
+            </button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="container-fluid">
+  <div class="row clearfix">
+    <div class="col-md-6 column">
+      <a href="https://www.sustech.edu.cn/">
+        <img src="/image/SUSTech-Logo.png" class="img-responsive" alt="SUSTech">
+      </a>
+    </div>
+    <div class="col-md-6 column">
+      <a href="https://isee.technology/">
+        <img src="/image/ISEE-Lab-Logo_vz.svg" class="img-responsive" alt="ISEE">
+      </a>
+    </div>
+  </div>
+  </div> -->
+
+
+
+  <script>
+    const HelloVueApp = {
+      data() {
+        return {
+          message: 'Hello Vue!!'
+        }
+      }
+    }
+
+    Vue.createApp(HelloVueApp).mount('#hello-vue')
+  </script>
+</body>
+
+</html>

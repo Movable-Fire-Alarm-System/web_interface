@@ -1,0 +1,6 @@
+#modest,
+#modest .panel-body,
+.panel-modest,
+.panel-modest .panel-body {
+  display: inline-block;
+}
