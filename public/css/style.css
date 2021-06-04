@@ -4,3 +4,8 @@
 .panel-modest .panel-body {
   display: inline-block;
 }
+
+.spacer { 
+  padding-top: 80px; 
+  padding-bottom: 40px 
+} 

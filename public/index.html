@@ -29,52 +29,79 @@
             <h3>Movement Control</h3>
           </div>
           <div class="panel-body">
-
-            <img src="/image/galaxy_star_12.jpg" class="img-responsive img-thumbnail">
-            
+<!-- 
             <div class="row clearfix">
-              <div class="col-md-6 column">
-                <label class="radio-inline">
-                  <input type="radio" name="videoMovement" id="optionsRadios1" value="realtime" checked> Real Time
-                </label>
+              <div class="col-md-12 column"> -->
+                <img src="http://0.0.0.0:8080/stream?topic=/camera/color/image_raw" class="img-responsive img-thumbnail" >
+              <!-- </div>
+            </div> -->
+
+            <div id="movementApp">
+              <div class="row clearfix spacer">
+                <div class="col-md-6 column">
+                  <label class="radio-inline">
+                    <input type="radio" name="movementMode" v-model="movementMode" id="movementModeOption1" value="auto"> Auto
+                  </label>
+                </div>
+                <div class="col-md-6 column">
+                  <label class="radio-inline">
+                    <input type="radio" name="movementMode" v-model="movementMode" id="movementModeOption2" value="manual"> Manual
+                  </label>
+                </div>
               </div>
-              <div class="col-md-6 column">
-                <label class="radio-inline">
-                  <input type="radio" name="videoMovement" id="optionsRadios2" value="compress"> Compress
-                </label>
+
+              <div>
+                <div class="row clearfix">
+                  <div class="col-md-6 column">
+  
+                  </div>
+                  <div class="col-md-1 column">
+                    <button type="button" class="btn btn-default" v-bind:disabled="movementMode === 'auto'">
+                      <span class="glyphicon glyphicon-arrow-up"></span>
+                    </button>
+                  </div>
+                  <div class="col-md-1 column">
+  
+                  </div>
+                </div>
+                <div class="row clearfix">
+                  <div class="col-md-5 column">
+  
+                  </div>
+                  <div class="col-md-1 column">
+                    <button type="button" class="btn btn-default" v-bind:disabled="movementMode === 'auto'">
+                      <span class="glyphicon glyphicon-arrow-left"></span>
+                    </button>
+                  </div>
+                  <div class="col-md-1 column">
+  
+                  </div>
+                  <div class="col-md-1 column">
+                    <button type="button" class="btn btn-default" v-bind:disabled="movementMode === 'auto'">
+                      <span class="glyphicon glyphicon-arrow-right" ></span>
+                    </button>
+                  </div>
+                </div>
+                <div class="row clearfix">
+                  <div class="col-md-6 column">
+  
+                  </div>
+                  <div class="col-md-1 column">
+                    <button type="button" class="btn btn-default" v-bind:disabled="movementMode === 'auto'">
+                      <span class="glyphicon glyphicon-arrow-down" ></span>
+                    </button>
+                  </div>
+                  <div class="col-md-1 column">
+  
+                  </div>
+                </div>
               </div>
             </div>
-
-
-
-
-            <button type="button" class="btn btn-default">
-              <span class="glyphicon glyphicon-arrow-up"></span>
-            </button>
-
-            <button type="button" class="btn btn-default">
-              <span class="glyphicon glyphicon-arrow-down"></span>
-            </button>
-
-            <button type="button" class="btn btn-default">
-              <span class="glyphicon glyphicon-arrow-left"></span>
-            </button>
-
-            <button type="button" class="btn btn-default">
-              <span class="glyphicon glyphicon-arrow-right"></span>
-            </button>
-
-            <button type="button" class="btn btn-default">
-              Auto
-            </button>
-
-            <button type="button" class="btn btn-default">
-              Manual
-            </button>
 
           </div>
         </div>
       </div>
+
       <div class="col-md-6 column">
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -82,49 +109,78 @@
           </div>
           <div class="panel-body">
 
-            <img src="/image/galaxy_star_12.jpg" class="img-responsive img-thumbnail">
-            
-            <div class="row clearfix">
-              <div class="col-md-6 column">
-                <label class="radio-inline">
-                  <input type="radio" name="videoGimbal" id="optionsRadios1" value="realtime" checked> Real Time
-                </label>
+            <!-- <div class="row clearfix">
+              <div class="col-md-12 column"> -->
+                <img src="http://0.0.0.0:8080/stream?topic=/camera/color/image_raw" class="img-responsive img-thumbnail" >
+              <!-- </div>
+            </div> -->
+
+            <div id="gimbalApp">
+              
+  
+              <div class="row clearfix spacer">
+                <div class="col-md-6 column">
+                  <label class="radio-inline">
+                    <input type="radio" name="gimbalMode" v-model="gimbalMode" id="gimbalModeOption1" value="auto"> Auto
+                  </label>
+                </div>
+                <div class="col-md-6 column">
+                  <label class="radio-inline">
+                    <input type="radio" name="gimbalMode" v-model="gimbalMode" id="gimbalModeOption2" value="manual"> Manual
+                  </label>
+                </div>
               </div>
-              <div class="col-md-6 column">
-                <label class="radio-inline">
-                  <input type="radio" name="videoGimbal" id="optionsRadios2" value="compress"> Compress
-                </label>
+  
+              <div class="row clearfix">
+                <div class="col-md-6 column">
+  
+                </div>
+                <div class="col-md-1 column">
+                  <button type="button" class="btn btn-default" v-bind:disabled="gimbalMode === 'auto'">
+                    <span class="glyphicon glyphicon-arrow-up"></span>
+                  </button>
+                </div>
+                <div class="col-md-1 column">
+  
+                </div>
+              </div>
+              <div class="row clearfix">
+                <div class="col-md-5 column">
+  
+                </div>
+                <div class="col-md-1 column">
+                  <button type="button" class="btn btn-default" v-bind:disabled="gimbalMode === 'auto'">
+                    <span class="glyphicon glyphicon-arrow-left"></span>
+                  </button>
+                </div>
+                <div class="col-md-1 column">
+  
+                </div>
+                <div class="col-md-1 column">
+                  <button type="button" class="btn btn-default" v-bind:disabled="gimbalMode === 'auto'">
+                    <span class="glyphicon glyphicon-arrow-right"></span>
+                  </button>
+                </div>
+              </div>
+              <div class="row clearfix">
+                <div class="col-md-6 column">
+  
+                </div>
+                <div class="col-md-1 column">
+                  <button type="button" class="btn btn-default" v-bind:disabled="gimbalMode === 'auto'">
+                    <span class="glyphicon glyphicon-arrow-down"></span>
+                  </button>
+                </div>
+                <div class="col-md-1 column">
+  
+                </div>
               </div>
             </div>
-
-
-            <button type="button" class="btn btn-default">
-              <span class="glyphicon glyphicon-arrow-up"></span>
-            </button>
-
-            <button type="button" class="btn btn-default">
-              <span class="glyphicon glyphicon-arrow-down"></span>
-            </button>
-
-            <button type="button" class="btn btn-default">
-              <span class="glyphicon glyphicon-arrow-left"></span>
-            </button>
-
-            <button type="button" class="btn btn-default">
-              <span class="glyphicon glyphicon-arrow-right"></span>
-            </button>
-
-            <button type="button" class="btn btn-default">
-              Auto
-            </button>
-
-            <button type="button" class="btn btn-default">
-              Manual
-            </button>
-
+            
           </div>
         </div>
       </div>
+      
     </div>
   </div>
 
@@ -143,18 +199,26 @@
   </div>
   </div> -->
 
-
-
   <script>
-    const HelloVueApp = {
+    var movementApp = Vue.createApp({
       data() {
         return {
-          message: 'Hello Vue!!'
-        }
-      }
-    }
+          movementMode: "auto",
+        };
+      },
+    });
 
-    Vue.createApp(HelloVueApp).mount('#hello-vue')
+    movementApp.mount("#movementApp");
+
+    var gimbalApp = Vue.createApp({
+      data() {
+        return {
+          gimbalMode: "auto",
+        };
+      },
+    });
+
+    gimbalApp.mount("#gimbalApp")
   </script>
 </body>
 
