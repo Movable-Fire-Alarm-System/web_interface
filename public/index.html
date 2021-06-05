@@ -4,11 +4,19 @@
 <head>
   <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cease Fire Web Interface</title>
-  <script src="js/vue3.0.5.js"></script>
+  <script src="/js/vue3.0.5.js"></script>
   <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+  <!-- <link rel="stylesheet" href="/css/bootstrap.min.css"> -->
   <link rel="stylesheet" href="/css/style.css">
   <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
   <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <!-- <script type="text/javascript" src="http://static.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script> -->
+  <!-- <script type="text/javascript" src="http://static.robotwebtools.org/roslibjs/current/roslib.min.js"></script> -->
+  <!-- <script src="/js/jquery.min.js"></script> -->
+  <!-- <script src="/js/bootstrap.min.js"></script> -->
+  <script type="text/javascript" src="/js/eventemitter2.min.js"></script>
+  <script type="text/javascript" src="/js/roslib.min.js"></script>
+
 </head>
 
 <body>
@@ -29,23 +37,25 @@
             <h3>Movement Control</h3>
           </div>
           <div class="panel-body">
-<!-- 
+            <!-- 
             <div class="row clearfix">
               <div class="col-md-12 column"> -->
-                <img src="http://0.0.0.0:8080/stream?topic=/camera/color/image_raw" class="img-responsive img-thumbnail" >
-              <!-- </div>
+            <img src="http://0.0.0.0:8080/stream?topic=/camera/color/image_raw" class="img-responsive img-thumbnail">
+            <!-- </div>
             </div> -->
 
             <div id="movementApp">
               <div class="row clearfix spacer">
                 <div class="col-md-6 column">
                   <label class="radio-inline">
-                    <input type="radio" name="movementMode" v-model="movementMode" id="movementModeOption1" value="auto"> Auto
+                    <input type="radio" name="movementMode" v-model="movementMode" id="movementModeOption1" value="auto"
+                      onchange="movementMode(this)"> Auto
                   </label>
                 </div>
                 <div class="col-md-6 column">
                   <label class="radio-inline">
-                    <input type="radio" name="movementMode" v-model="movementMode" id="movementModeOption2" value="manual"> Manual
+                    <input type="radio" name="movementMode" v-model="movementMode" id="movementModeOption2"
+                      value="manual" onchange="movementMode(this)"> Manual
                   </label>
                 </div>
               </div>
@@ -53,46 +63,50 @@
               <div>
                 <div class="row clearfix">
                   <div class="col-md-6 column">
-  
+
                   </div>
                   <div class="col-md-1 column">
-                    <button type="button" class="btn btn-default" v-bind:disabled="movementMode === 'auto'">
+                    <button type="button" class="btn btn-default" v-bind:disabled="movementMode === 'auto'"
+                      onmousedown="movementUpStart()" onmouseup="movementUpEnd()">
                       <span class="glyphicon glyphicon-arrow-up"></span>
                     </button>
                   </div>
                   <div class="col-md-1 column">
-  
+
                   </div>
                 </div>
                 <div class="row clearfix">
                   <div class="col-md-5 column">
-  
+
                   </div>
                   <div class="col-md-1 column">
-                    <button type="button" class="btn btn-default" v-bind:disabled="movementMode === 'auto'">
+                    <button type="button" class="btn btn-default" v-bind:disabled="movementMode === 'auto'"
+                      onmousedown="movementLeftStart()" onmouseup="movementLeftEnd()">
                       <span class="glyphicon glyphicon-arrow-left"></span>
                     </button>
                   </div>
                   <div class="col-md-1 column">
-  
+
                   </div>
                   <div class="col-md-1 column">
-                    <button type="button" class="btn btn-default" v-bind:disabled="movementMode === 'auto'">
-                      <span class="glyphicon glyphicon-arrow-right" ></span>
+                    <button type="button" class="btn btn-default" v-bind:disabled="movementMode === 'auto'"
+                      onmousedown="movementRightStart()" onmouseup="movementRightEnd()">
+                      <span class="glyphicon glyphicon-arrow-right"></span>
                     </button>
                   </div>
                 </div>
                 <div class="row clearfix">
                   <div class="col-md-6 column">
-  
+
                   </div>
                   <div class="col-md-1 column">
-                    <button type="button" class="btn btn-default" v-bind:disabled="movementMode === 'auto'">
-                      <span class="glyphicon glyphicon-arrow-down" ></span>
+                    <button type="button" class="btn btn-default" v-bind:disabled="movementMode === 'auto'"
+                      onmousedown="movementDownStart()" onmouseup="movementDownEnd()">
+                      <span class="glyphicon glyphicon-arrow-down"></span>
                     </button>
                   </div>
                   <div class="col-md-1 column">
-  
+
                   </div>
                 </div>
               </div>
@@ -111,76 +125,88 @@
 
             <!-- <div class="row clearfix">
               <div class="col-md-12 column"> -->
-                <img src="http://0.0.0.0:8080/stream?topic=/camera/color/image_raw" class="img-responsive img-thumbnail" >
-              <!-- </div>
+            <img src="http://0.0.0.0:8080/stream?topic=/camera/color/image_raw" class="img-responsive img-thumbnail">
+            <!-- </div>
             </div> -->
 
             <div id="gimbalApp">
-              
-  
+
+
               <div class="row clearfix spacer">
                 <div class="col-md-6 column">
                   <label class="radio-inline">
-                    <input type="radio" name="gimbalMode" v-model="gimbalMode" id="gimbalModeOption1" value="auto"> Auto
+                    <input type="radio" name="gimbalMode" v-model="gimbalMode" id="gimbalModeOption1" value="auto"
+                      onchange="gimbalMode(this)"> Auto
                   </label>
                 </div>
                 <div class="col-md-6 column">
                   <label class="radio-inline">
-                    <input type="radio" name="gimbalMode" v-model="gimbalMode" id="gimbalModeOption2" value="manual"> Manual
+                    <input type="radio" name="gimbalMode" v-model="gimbalMode" id="gimbalModeOption2" value="manual"
+                      onchange="gimbalMode(this)"> Manual
                   </label>
                 </div>
               </div>
-  
+
               <div class="row clearfix">
                 <div class="col-md-6 column">
-  
+
                 </div>
                 <div class="col-md-1 column">
-                  <button type="button" class="btn btn-default" v-bind:disabled="gimbalMode === 'auto'">
+                  <button type="button" class="btn btn-default" v-bind:disabled="gimbalMode === 'auto'"
+                    onmousedown="gimbalUpStart()" onmouseup="gimbalUpEnd()">
                     <span class="glyphicon glyphicon-arrow-up"></span>
                   </button>
                 </div>
                 <div class="col-md-1 column">
-  
+
                 </div>
               </div>
               <div class="row clearfix">
                 <div class="col-md-5 column">
-  
+
                 </div>
                 <div class="col-md-1 column">
-                  <button type="button" class="btn btn-default" v-bind:disabled="gimbalMode === 'auto'">
+                  <button type="button" class="btn btn-default" v-bind:disabled="gimbalMode === 'auto'"
+                    onmousedown="gimbalLeftStart()" onmouseup="gimbalLeftEnd()">
                     <span class="glyphicon glyphicon-arrow-left"></span>
                   </button>
                 </div>
                 <div class="col-md-1 column">
-  
+
                 </div>
                 <div class="col-md-1 column">
-                  <button type="button" class="btn btn-default" v-bind:disabled="gimbalMode === 'auto'">
+                  <button type="button" class="btn btn-default" v-bind:disabled="gimbalMode === 'auto'"
+                    onmousedown="gimbalRightStart()" onmouseup="gimbalRightEnd()">
                     <span class="glyphicon glyphicon-arrow-right"></span>
+                  </button>
+                </div>
+                <div class="col-md-4 column">
+                  <button type="button" class="btn btn-default" v-bind:disabled="gimbalMode === 'auto'"
+                    onmousedown="shootStart()" onmouseup="shootEnd()">
+                    shoot
                   </button>
                 </div>
               </div>
               <div class="row clearfix">
                 <div class="col-md-6 column">
-  
+
                 </div>
                 <div class="col-md-1 column">
-                  <button type="button" class="btn btn-default" v-bind:disabled="gimbalMode === 'auto'">
+                  <button type="button" class="btn btn-default" v-bind:disabled="gimbalMode === 'auto'"
+                    onmousedown="gimbalDownStart()" onmouseup="gimbalDownEnd()">
                     <span class="glyphicon glyphicon-arrow-down"></span>
                   </button>
                 </div>
                 <div class="col-md-1 column">
-  
+
                 </div>
               </div>
             </div>
-            
+
           </div>
         </div>
       </div>
-      
+
     </div>
   </div>
 
@@ -200,6 +226,7 @@
   </div> -->
 
   <script>
+
     var movementApp = Vue.createApp({
       data() {
         return {
@@ -219,6 +246,197 @@
     });
 
     gimbalApp.mount("#gimbalApp")
+
+    var ros = new ROSLIB.Ros({
+      url: 'ws://localhost:9090'
+    });
+
+    ros.on('connection', function () {
+      console.log('Connected to websocket server.');
+    });
+
+    var cmdVel = new ROSLIB.Topic({
+      ros: ros,
+      name: '/cmd_vel',
+      messageType: 'geometry_msgs/Twist'
+    })
+
+    var forward = new ROSLIB.Message({
+      linear: {
+        x: 0.1,
+        y: 0.2,
+        z: 0.3
+      },
+      angular: {
+        x: -0.1,
+        y: -0.2,
+        z: -0.3
+      }
+    });
+
+    var backward = new ROSLIB.Message({
+      linear: {
+        x: 0.1,
+        y: 0.2,
+        z: 0.3
+      },
+      angular: {
+        x: -0.1,
+        y: -0.2,
+        z: -0.3
+      }
+    });
+
+    var leftTurn = new ROSLIB.Message({
+      linear: {
+        x: 0.1,
+        y: 0.2,
+        z: 0.3
+      },
+      angular: {
+        x: -0.1,
+        y: -0.2,
+        z: -0.3
+      }
+    });
+
+    var rightTurn = new ROSLIB.Message({
+      linear: {
+        x: 0.1,
+        y: 0.2,
+        z: 0.3
+      },
+      angular: {
+        x: -0.1,
+        y: -0.2,
+        z: -0.3
+      }
+    });
+
+    var stopVel = new ROSLIB.Message({
+      linear: {
+        x: 0,
+        y: 0,
+        z: 0
+      },
+      angular: {
+        x: 0,
+        y: 0,
+        z: 0
+      }
+    });
+
+    var movementUpTimer;
+    function movementUpStart() {
+      movementUpTimer = setInterval(function () {
+        console.log("Moving Up");
+        cmdVel.publish(forward);
+      }, 1);
+    }
+    function movementUpEnd() {
+      clearInterval(movementUpTimer);
+      console.log("Stop");
+      cmdVel.publish(stopVel);
+    }
+    var movementDownTimer;
+    function movementDownStart() {
+      movementDownTimer = setInterval(function () {
+        console.log("Moving Down");
+        cmdVel.publish(backward);
+      }, 1);
+    }
+    function movementDownEnd() {
+      clearInterval(movementDownTimer);
+      console.log("Stop");
+      cmdVel.publish(stopVel);
+    }
+    var movementLeftTimer;
+    function movementLeftStart() {
+      movementLeftTimer = setInterval(function () {
+        console.log("Moving Left");
+        cmdVel.publish(leftTurn);
+      }, 1);
+    }
+    function movementLeftEnd() {
+      clearInterval(movementLeftTimer);
+      console.log("Stop");
+      cmdVel.publish(stopVel);
+    }
+    var movementRightTimer;
+    function movementRightStart() {
+      movementRightTimer = setInterval(function () {
+        console.log("Moving Right");
+        cmdVel.publish(rightTurn);
+      }, 1);
+    }
+    function movementRightEnd() {
+      clearInterval(movementRightTimer);
+      console.log("Stop");
+      cmdVel.publish(stopVel);
+    }
+    var gimbalUpTimer;
+    function gimbalUpStart() {
+      gimbalUpTimer = setInterval(function () {
+        console.log("Gimbal Up");
+      }, 10);
+    }
+    function gimbalUpEnd() {
+      clearInterval(gimbalUpTimer);
+      console.log("Stop");
+    }
+    var gimbalDownTimer;
+    function gimbalDownStart() {
+      gimbalDownTimer = setInterval(function () {
+        console.log("Gimbal Down");
+      }, 10);
+    }
+    function gimbalDownEnd() {
+      clearInterval(gimbalDownTimer);
+      console.log("Stop");
+    }
+    var gimbalLeftTimer;
+    function gimbalLeftStart() {
+      gimbalLeftTimer = setInterval(function () {
+        console.log("Gimbal Left");
+      }, 10);
+    }
+    function gimbalLeftEnd() {
+      clearInterval(gimbalLeftTimer);
+      console.log("Stop");
+    }
+    var gimbalRightTimer;
+    function gimbalRightStart() {
+      gimbalRightTimer = setInterval(function () {
+        console.log("Gimbal Right");
+      }, 10);
+    }
+    function gimbalRightEnd() {
+      clearInterval(gimbalRightTimer);
+      console.log("Stop");
+    }
+    var shootTimer;
+    function shootStart() {
+      shootTimer = setInterval(function () {
+        console.log("Shoot");
+      }, 10);
+    }
+    function shootEnd() {
+      clearInterval(shootTimer);
+      console.log("Stop");
+    }
+
+    function movementMode(select) {
+      console.log("Movement Mode:" + select.value);
+    }
+
+    function gimbalMode(select) {
+      console.log("Gimbal Mode:" + select.value);
+    }
+
+
+
+
+
   </script>
 </body>
 
