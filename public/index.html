@@ -40,7 +40,7 @@
             <!-- 
             <div class="row clearfix">
               <div class="col-md-12 column"> -->
-            <img src="http://0.0.0.0:8080/stream?topic=/camera/color/image_raw" class="img-responsive img-thumbnail">
+            <img src="http://10.17.79.127:8080/stream?topic=/cam_1/color/image_raw" class="img-responsive img-thumbnail rotate180">
             <!-- </div>
             </div> -->
 
@@ -125,7 +125,8 @@
 
             <!-- <div class="row clearfix">
               <div class="col-md-12 column"> -->
-            <img src="http://0.0.0.0:8080/stream?topic=/camera/color/image_raw" class="img-responsive img-thumbnail">
+            <img src="http://10.17.79.127:8080/stream?topic=/cam_2/color/image_raw" class="img-responsive img-thumbnail rotate180">
+            <!-- <img src="http://10.17.79.127:8080/stream?topic=/darknet_ros/detection_image" class="img-responsive img-thumbnail"> -->
             <!-- </div>
             </div> -->
 
@@ -153,7 +154,7 @@
                 </div>
                 <div class="col-md-1 column">
                   <button type="button" class="btn btn-default" v-bind:disabled="gimbalMode === 'auto'"
-                    onmousedown="gimbalUpStart()" onmouseup="gimbalUpEnd()">
+                    onclick="gimbalUp()">
                     <span class="glyphicon glyphicon-arrow-up"></span>
                   </button>
                 </div>
@@ -167,7 +168,7 @@
                 </div>
                 <div class="col-md-1 column">
                   <button type="button" class="btn btn-default" v-bind:disabled="gimbalMode === 'auto'"
-                    onmousedown="gimbalLeftStart()" onmouseup="gimbalLeftEnd()">
+                  onclick="gimbalLeft()">
                     <span class="glyphicon glyphicon-arrow-left"></span>
                   </button>
                 </div>
@@ -176,13 +177,13 @@
                 </div>
                 <div class="col-md-1 column">
                   <button type="button" class="btn btn-default" v-bind:disabled="gimbalMode === 'auto'"
-                    onmousedown="gimbalRightStart()" onmouseup="gimbalRightEnd()">
+                  onclick="gimbalDown()">
                     <span class="glyphicon glyphicon-arrow-right"></span>
                   </button>
                 </div>
                 <div class="col-md-4 column">
                   <button type="button" class="btn btn-default" v-bind:disabled="gimbalMode === 'auto'"
-                    onmousedown="shootStart()" onmouseup="shootEnd()">
+                  onclick="gimbalLeft()">
                     shoot
                   </button>
                 </div>
@@ -248,7 +249,7 @@
     gimbalApp.mount("#gimbalApp")
 
     var ros = new ROSLIB.Ros({
-      url: 'ws://localhost:9090'
+      url: 'ws://10.17.79.127:9090'
     });
 
     ros.on('connection', function () {
@@ -259,57 +260,57 @@
       ros: ros,
       name: '/cmd_vel',
       messageType: 'geometry_msgs/Twist'
-    })
+    });
 
     var forward = new ROSLIB.Message({
       linear: {
         x: 0.1,
-        y: 0.2,
-        z: 0.3
+        y: 0.0,
+        z: 0.0
       },
       angular: {
-        x: -0.1,
-        y: -0.2,
-        z: -0.3
+        x: 0.0,
+        y: 0.0,
+        z: 0.0
       }
     });
 
     var backward = new ROSLIB.Message({
       linear: {
-        x: 0.1,
-        y: 0.2,
-        z: 0.3
+        x: -0.1,
+        y: 0.0,
+        z: 0.0
       },
       angular: {
-        x: -0.1,
-        y: -0.2,
-        z: -0.3
+        x: 0.0,
+        y: 0.0,
+        z: 0.0
       }
     });
 
     var leftTurn = new ROSLIB.Message({
       linear: {
-        x: 0.1,
-        y: 0.2,
-        z: 0.3
+        x: 0.0,
+        y: 0.0,
+        z: 0.0
       },
       angular: {
-        x: -0.1,
-        y: -0.2,
-        z: -0.3
+        x: 0.0,
+        y: 0.0,
+        z: 0.1
       }
     });
 
     var rightTurn = new ROSLIB.Message({
       linear: {
-        x: 0.1,
-        y: 0.2,
-        z: 0.3
+        x: 0.0,
+        y: 0.0,
+        z: 0.0
       },
       angular: {
-        x: -0.1,
-        y: -0.2,
-        z: -0.3
+        x: 0.0,
+        y: 0.0,
+        z: -0.1
       }
     });
 
@@ -325,6 +326,35 @@
         z: 0
       }
     });
+
+    var gimbal_horizon = new ROSLIB.Topic({
+      ros: ros,
+      name: '/gimbal/horizon',
+      messageType: 'std_msgs/Int16'
+    });
+
+    var gimbal_vertical = new ROSLIB.Topic({
+      ros: ros,
+      name: '/gimbal/vertical',
+      messageType: 'std_msgs/Int16'
+    });
+
+    var gimbal_up = new ROSLIB.Message({
+      data: 5
+    });
+
+    var gimbal_down = new ROSLIB.Message({
+      data: -5
+    });
+
+    var gimbal_left = new ROSLIB.Message({
+      data: -5
+    })
+
+    var gimbal_right = new ROSLIB.Message({
+      data: 5
+    })
+
 
     var movementUpTimer;
     function movementUpStart() {
@@ -374,55 +404,21 @@
       console.log("Stop");
       cmdVel.publish(stopVel);
     }
-    var gimbalUpTimer;
-    function gimbalUpStart() {
-      gimbalUpTimer = setInterval(function () {
-        console.log("Gimbal Up");
-      }, 10);
+
+    function gimbalUp() {
+      gimbal_vertical.publish(gimbal_up);
     }
-    function gimbalUpEnd() {
-      clearInterval(gimbalUpTimer);
-      console.log("Stop");
+
+    function gimbalDown() {
+      gimbal_vertical.publish(gimbal_down);
     }
-    var gimbalDownTimer;
-    function gimbalDownStart() {
-      gimbalDownTimer = setInterval(function () {
-        console.log("Gimbal Down");
-      }, 10);
+
+    function gimbalLeft() {
+      gimbal_horizon.publish(gimbal_left);
     }
-    function gimbalDownEnd() {
-      clearInterval(gimbalDownTimer);
-      console.log("Stop");
-    }
-    var gimbalLeftTimer;
-    function gimbalLeftStart() {
-      gimbalLeftTimer = setInterval(function () {
-        console.log("Gimbal Left");
-      }, 10);
-    }
-    function gimbalLeftEnd() {
-      clearInterval(gimbalLeftTimer);
-      console.log("Stop");
-    }
-    var gimbalRightTimer;
-    function gimbalRightStart() {
-      gimbalRightTimer = setInterval(function () {
-        console.log("Gimbal Right");
-      }, 10);
-    }
-    function gimbalRightEnd() {
-      clearInterval(gimbalRightTimer);
-      console.log("Stop");
-    }
-    var shootTimer;
-    function shootStart() {
-      shootTimer = setInterval(function () {
-        console.log("Shoot");
-      }, 10);
-    }
-    function shootEnd() {
-      clearInterval(shootTimer);
-      console.log("Stop");
+
+    function gimbalRight() {
+      gimbal_horizon.publish(gimbal_right);
     }
 
     function movementMode(select) {
@@ -432,10 +428,6 @@
     function gimbalMode(select) {
       console.log("Gimbal Mode:" + select.value);
     }
-
-
-
-
 
   </script>
 </body>
